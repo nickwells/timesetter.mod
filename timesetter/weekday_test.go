@@ -6,9 +6,9 @@ import (
 	"time"
 
 	"github.com/nickwells/check.mod/v2/check"
+	"github.com/nickwells/locale.mod/locale"
 	"github.com/nickwells/param.mod/v7/param"
 	"github.com/nickwells/param.mod/v7/paramtest"
-	"github.com/nickwells/tempus.mod/tempus"
 	"github.com/nickwells/testhelper.mod/v2/testhelper"
 	"github.com/nickwells/timesetter.mod/timesetter"
 )
@@ -59,8 +59,8 @@ func TestWeekdaySetter(t *testing.T) {
 		{
 			ID: testhelper.MkID("good-setter-bad-value"),
 			PSetter: timesetter.WeekdaySetter{
-				Value:  &weekday,
-				Locale: &tempus.LocEnglish,
+				Value: &weekday,
+				Time:  &locale.TimeEnglish,
 			},
 			ParamVal: "nonesuch",
 			SetWithValErr: testhelper.MkExpErr(
@@ -69,8 +69,8 @@ func TestWeekdaySetter(t *testing.T) {
 		{
 			ID: testhelper.MkID("good-setter-bad-but-close-value"),
 			PSetter: timesetter.WeekdaySetter{
-				Value:  &weekday,
-				Locale: &tempus.LocEnglish,
+				Value: &weekday,
+				Time:  &locale.TimeEnglish,
 			},
 			ParamVal: "Wudnesday",
 			SetWithValErr: testhelper.MkExpErr(
@@ -80,16 +80,16 @@ func TestWeekdaySetter(t *testing.T) {
 		{
 			ID: testhelper.MkID("good-setter-good-value"),
 			PSetter: timesetter.WeekdaySetter{
-				Value:  &weekday,
-				Locale: &tempus.LocEnglish,
+				Value: &weekday,
+				Time:  &locale.TimeEnglish,
 			},
 			ParamVal: "Wednesday",
 		},
 		{
 			ID: testhelper.MkID("good-setter-good-value-fails-checks"),
 			PSetter: timesetter.WeekdaySetter{
-				Value:  &weekday,
-				Locale: &tempus.LocEnglish,
+				Value: &weekday,
+				Time:  &locale.TimeEnglish,
 				Checks: []check.ValCk[time.Weekday]{
 					func(val time.Weekday) error {
 						if val == time.Wednesday {

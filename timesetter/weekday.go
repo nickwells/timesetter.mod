@@ -5,9 +5,9 @@ import (
 	"strings"
 	"time"
 
+	"github.com/nickwells/locale.mod/locale"
 	"github.com/nickwells/param.mod/v7/psetter"
 	"github.com/nickwells/strdist.mod/v2/strdist"
-	"github.com/nickwells/tempus.mod/tempus"
 )
 
 // WeekdaySetter allows you to set the value of a time.Weekday variable.
@@ -19,10 +19,10 @@ type WeekdaySetter struct {
 	// to the weekday value that the setter is setting.
 	Value *time.Weekday
 
-	// You must set a Locale, the program will panic if not. This is a
+	// You must set a Time, the program will panic if not. This is a
 	// pointer to the mappings between weekday names and time.Weekday values
 	// that the setter will use to convert the parameter value.
-	Locale *tempus.Locale
+	Time *locale.Time
 
 	// If you set a ValDesc this will be used in help messages to label the
 	// Value. If you leave this blank then the Value will be labelled
@@ -34,7 +34,7 @@ type WeekdaySetter struct {
 // value. It will find those strings in the set of possible values that are
 // closest to the given value
 func (s WeekdaySetter) suggestAltVal(val string) string {
-	names := s.Locale.WeekdayNames()
+	names := s.Time.WeekdayNames()
 
 	return strdist.SuggestionString(strdist.SuggestedVals(val, names))
 }
@@ -44,7 +44,7 @@ func (s WeekdaySetter) suggestAltVal(val string) string {
 // weekday can be found. Only if the value is parsed successfully is the
 // Value set.
 func (s WeekdaySetter) SetWithVal(_ string, paramVal string) error {
-	w, err := s.Locale.ToWeekday(paramVal)
+	w, err := s.Time.ToWeekday(paramVal)
 	if err != nil {
 		return fmt.Errorf("%v%s", err, s.suggestAltVal(paramVal))
 	}
@@ -60,7 +60,7 @@ func (s WeekdaySetter) SetWithVal(_ string, paramVal string) error {
 
 // AllowedValues returns a string describing the allowed values
 func (s WeekdaySetter) AllowedValues() string {
-	names := s.Locale.WeekdayNames()
+	names := s.Time.WeekdayNames()
 
 	rval := strings.Join(names, ", ")
 
@@ -90,7 +90,7 @@ func (s WeekdaySetter) CheckSetter(name string) {
 		panic(psetter.NilValueMessage(name, fmt.Sprintf("%T", s)))
 	}
 
-	if s.Locale == nil {
+	if s.Time == nil {
 		panic(psetter.BadSetterMessage(
 			name, fmt.Sprintf("%T", s),
 			"the Locale has not been set"))

@@ -6,9 +6,9 @@ import (
 	"time"
 
 	"github.com/nickwells/check.mod/v2/check"
+	"github.com/nickwells/locale.mod/locale"
 	"github.com/nickwells/param.mod/v7/param"
 	"github.com/nickwells/param.mod/v7/paramtest"
-	"github.com/nickwells/tempus.mod/tempus"
 	"github.com/nickwells/testhelper.mod/v2/testhelper"
 	"github.com/nickwells/timesetter.mod/timesetter"
 )
@@ -54,13 +54,13 @@ func TestMonthSetter(t *testing.T) {
 				dfltParamName +
 					": timesetter.MonthSetter Check failed" +
 					": the Setter is improperly constructed" +
-					": the Locale has not been set"),
+					": the Time has not been set"),
 		},
 		{
 			ID: testhelper.MkID("good-setter-bad-value"),
 			PSetter: timesetter.MonthSetter{
-				Value:  &month,
-				Locale: &tempus.LocEnglish,
+				Value: &month,
+				Time:  &locale.TimeEnglish,
 			},
 			ParamVal: "nonesuch",
 			SetWithValErr: testhelper.MkExpErr(
@@ -69,8 +69,8 @@ func TestMonthSetter(t *testing.T) {
 		{
 			ID: testhelper.MkID("good-setter-bad-but-close-value"),
 			PSetter: timesetter.MonthSetter{
-				Value:  &month,
-				Locale: &tempus.LocEnglish,
+				Value: &month,
+				Time:  &locale.TimeEnglish,
 			},
 			ParamVal: "Fubruary",
 			SetWithValErr: testhelper.MkExpErr(
@@ -80,16 +80,16 @@ func TestMonthSetter(t *testing.T) {
 		{
 			ID: testhelper.MkID("good-setter-good-value"),
 			PSetter: timesetter.MonthSetter{
-				Value:  &month,
-				Locale: &tempus.LocEnglish,
+				Value: &month,
+				Time:  &locale.TimeEnglish,
 			},
 			ParamVal: "February",
 		},
 		{
 			ID: testhelper.MkID("good-setter-good-value-fails-checks"),
 			PSetter: timesetter.MonthSetter{
-				Value:  &month,
-				Locale: &tempus.LocEnglish,
+				Value: &month,
+				Time:  &locale.TimeEnglish,
 				Checks: []check.ValCk[time.Month]{
 					func(val time.Month) error {
 						if val == time.May {

@@ -5,9 +5,9 @@ import (
 	"strings"
 	"time"
 
+	"github.com/nickwells/locale.mod/locale"
 	"github.com/nickwells/param.mod/v7/psetter"
 	"github.com/nickwells/strdist.mod/v2/strdist"
-	"github.com/nickwells/tempus.mod/tempus"
 )
 
 // MonthSetter allows you to set the value of a time.Month variable.
@@ -19,10 +19,10 @@ type MonthSetter struct {
 	// to the month value that the setter is setting.
 	Value *time.Month
 
-	// You must set a Locale, the program will panic if not. This is a
+	// You must set a Time, the program will panic if not. This is a
 	// pointer to the mappings between month names and time.Month values that
 	// the setter will use to convert the parameter value.
-	Locale *tempus.Locale
+	Time *locale.Time
 
 	// If you set a ValDesc this will be used in help messages to label the
 	// Value. If you leave this blank then the Value will be labelled
@@ -34,17 +34,17 @@ type MonthSetter struct {
 // value. It will find those strings in the set of possible values that are
 // closest to the given value
 func (s MonthSetter) suggestAltVal(val string) string {
-	names := s.Locale.MonthNames()
+	names := s.Time.MonthNames()
 
 	return strdist.SuggestionString(strdist.SuggestedVals(val, names))
 }
 
 // SetWithVal (called when a value follows a parameter) parses the paramVal
-// as a month using the MonthSetter's Locale. An error is returned if no
+// as a month using the MonthSetter's Time. An error is returned if no
 // month can be found. Only if the value is parsed successfully is the Value
 // set.
 func (s MonthSetter) SetWithVal(_ string, paramVal string) error {
-	m, err := s.Locale.ToMonth(paramVal)
+	m, err := s.Time.ToMonth(paramVal)
 	if err != nil {
 		return fmt.Errorf("%v%s", err, s.suggestAltVal(paramVal))
 	}
@@ -60,7 +60,7 @@ func (s MonthSetter) SetWithVal(_ string, paramVal string) error {
 
 // AllowedValues returns a string describing the allowed values
 func (s MonthSetter) AllowedValues() string {
-	names := s.Locale.MonthNames()
+	names := s.Time.MonthNames()
 
 	rval := strings.Join(names, ", ")
 
@@ -83,17 +83,17 @@ func (s MonthSetter) CurrentValue() string {
 }
 
 // CheckSetter panics if the setter has not been properly created - if the
-// Value is nil, if the Locale is nil or if one of the check functions is
+// Value is nil, if the Time is nil or if one of the check functions is
 // nil.
 func (s MonthSetter) CheckSetter(name string) {
 	if s.Value == nil {
 		panic(psetter.NilValueMessage(name, fmt.Sprintf("%T", s)))
 	}
 
-	if s.Locale == nil {
+	if s.Time == nil {
 		panic(psetter.BadSetterMessage(
 			name, fmt.Sprintf("%T", s),
-			"the Locale has not been set"))
+			"the Time has not been set"))
 	}
 
 	s.VerifyChecks(name, fmt.Sprintf("%T", s))
