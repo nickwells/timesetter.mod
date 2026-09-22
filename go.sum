@@ -10,8 +10,8 @@ github.com/nickwells/filecheck.mod v1.2.16 h1:Vmnj5f7OyWG/KPYcFL27lyZiZhVcA5bv4Y
 github.com/nickwells/filecheck.mod v1.2.16/go.mod h1:kw7G+hdhH3JEjBB9eDp8z4w20slzcChX0hEMGphBzbw=
 github.com/nickwells/fileparse.mod v1.1.42 h1:O437ni1/KztQGtbGz1X0wafzFk8ynLR9DVVXDt70FoE=
 github.com/nickwells/fileparse.mod v1.1.42/go.mod h1:5Q7MU74um2hctUxkC4Puhqb39F2S7MDwhloTfrUV7/c=
-github.com/nickwells/locale.mod v1.0.0 h1:0B6HElX+28AZGjQgkllQ21F+u3xEv7b5J9m9jsxD2m0=
-github.com/nickwells/locale.mod v1.0.0/go.mod h1:wGSLxmzJa5jBnXHF7q8b3j9AwyRXZvZd+th2WdKNTFY=
+github.com/nickwells/locale.mod v1.1.0 h1:9WzkR+3DVb6pP08DW+8OMPdlfdvzlagEJcbLLNJZ8tM=
+github.com/nickwells/locale.mod v1.1.0/go.mod h1:wGSLxmzJa5jBnXHF7q8b3j9AwyRXZvZd+th2WdKNTFY=
 github.com/nickwells/location.mod v1.2.40 h1:0N00l5qWkRJHHWlu6jI0XguLCuavEUfQnFgV3X4ozBc=
 github.com/nickwells/location.mod v1.2.40/go.mod h1:4IjMmwYqx6UXFAdc4DXkuQWaoDiudZNxpF1FHMAXRes=
 github.com/nickwells/mathutil.mod/v2 v2.5.14 h1:QrsX9AH19RC/LpAwizVVNYdwu8N9WqllH6uvhkI/Q7I=

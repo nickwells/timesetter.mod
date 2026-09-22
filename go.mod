@@ -4,7 +4,7 @@ go 1.27.0
 
 require (
 	github.com/nickwells/check.mod/v2 v2.2.1
-	github.com/nickwells/locale.mod v1.0.0
+	github.com/nickwells/locale.mod v1.1.0
 	github.com/nickwells/param.mod/v7 v7.3.1
 	github.com/nickwells/strdist.mod/v2 v2.1.5
 	github.com/nickwells/testhelper.mod/v2 v2.6.4
